@@ -1,0 +1,88 @@
+/* ==========================================================================
+   WIPE Launcher v11 — Design Tokens & Typography
+   Pure Obsidian Black & WIPE Cobalt Blue (#2f62ff) + Satoshi typeface
+   ========================================================================== */
+
+@font-face {
+  font-family: 'SatoshiFont';
+  src: url('../assets/fonts/Satoshi-Medium.woff2') format('woff2');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'SatoshiFont';
+  src: url('../assets/fonts/Satoshi-Bold.woff2') format('woff2');
+  font-weight: 600 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'SatoshiFont';
+  src: url('../assets/fonts/Satoshi-Black.woff2') format('woff2');
+  font-weight: 800 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'SatoshiFont Fallback';
+  src: local('Arial');
+  ascent-override: 99.15%;
+  descent-override: 23.56%;
+  line-gap-override: 9.82%;
+  size-adjust: 101.86%;
+}
+
+@font-face {
+  font-family: 'JetBrains Mono';
+  src: url('../assets/fonts/JetBrainsMonoVariable.ttf') format('truetype');
+  font-weight: 100 800;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  /* Core Palette — Obsidian Black & WIPE Cobalt Blue */
+  --bg: #0a0a0a;
+  --surface: #0d0d0d;
+  --surface-elevated: #171717;
+  --surface-hover: #1c1e24;
+
+  --border: rgba(255, 255, 255, 0.09);
+  --border-hover: rgba(255, 255, 255, 0.18);
+  --border-subtle: rgba(255, 255, 255, 0.06);
+  --divider: #242424;
+
+  --text-wordmark: #f2f2f4;
+  --text-primary: #ececef;
+  --text-active: #f1f1f3;
+  --text-hover: #c9c9ce;
+  --text-muted: #aaaab0;
+  --text-dim: #6f6f76;
+
+  --accent: #2f62ff;
+  --accent-bright: #5c85ff;
+  --accent-soft: rgba(47, 98, 255, 0.18);
+  --accent-glow: rgba(47, 98, 255, 0.38);
+  --focus-ring: #6e93ff;
+
+  /* Typography */
+  --font-satoshi: 'SatoshiFont', 'SatoshiFont Fallback', sans-serif;
+  --font-mono: 'JetBrains Mono', Consolas, monospace;
+
+  /* Responsive Wordmark Scale */
+  --wordmark-width: min(580px, 80vw, 62dvh);
+
+  /* Motion Curves */
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --ease-smooth: cubic-bezier(0.16, 1, 0.3, 1);
+
+  /* Layout */
+  --nav-h: 64px;
+  --section-w: min(1120px, calc(100% - 48px));
+  --nav-w: min(1200px, calc(100% - 40px));
+}

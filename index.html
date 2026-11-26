@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>WIPE 11.1 — Minecraft Launcher</title>
+  <link rel="icon" type="image/x-icon" href="assets/images/wipe.ico" />
+  <meta name="description" content="WIPE Launcher v11.1 for Windows x64. Isolated Fabric, Forge, NeoForge, Quilt &amp; Vanilla instances, native Modrinth v2 browser, automatic Adoptium Java 8-25 provisioning, Ely.by skins, native GitHub auto-updater, fluid UI choreography, and Discord Rich Presence." />
+  <link rel="preload" href="assets/fonts/Satoshi-Black.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="assets/fonts/Satoshi-Bold.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="assets/fonts/Satoshi-Medium.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="stylesheet" href="css/tokens.css" />
+  <link rel="stylesheet" href="css/main.css" />
+  <link rel="stylesheet" href="css/showcase-ui.css" />
+</head>
+<body>
+  <!-- Subtle interactive 3D obsidian depth canvas -->
+  <canvas id="bg-3d-canvas" aria-hidden="true"></canvas>
+  <div class="bg-vignette" aria-hidden="true"></div>
+
+  <main class="home landing landing-minimal">
+    <!-- 1. Fixed Minimal Top Navbar -->
+    <header class="landing-nav" id="LandingNav">
+      <div class="landing-nav-inner">
+        <a class="landing-logo" href="#top" aria-label="WIPE Launcher Home">
+          <img src="assets/images/wipe-logo.png" alt="WIPE" />
+        </a>
+
+        <div class="landing-nav-right">
+          <button type="button" class="landing-chip landing-chip-nav" id="BtnLangToggle" title="Switch language (EN / TR)">TR</button>
+          <button type="button" class="landing-chip landing-chip-nav" data-open-modal="download" data-dl-preset="setup">
+            <svg viewBox="0 0 16 16" fill="none" aria-hidden="true">
+              <path d="M8 2.25V10.5M8 10.5L4.75 7.25M8 10.5L11.25 7.25M2.75 12.75H13.25" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+            <span data-i18n="nav.download">Download</span>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <!-- 2. Hero & 3-Panel Interactive 3D Showcase -->
+    <section class="landing-hero" id="top">
+      <div class="landing-wordmark-wrap">
+        <h1 class="landing-version-title" id="HeroWordmark">
+          <span>WIPE</span><span class="wordmark-ver">11.1</span>
+        </h1>
+      </div>
+
+      <p class="landing-hero-desc" data-i18n="hero.desc">
+        Tired of bloated Minecraft launchers filled with ads and telemetry? Meet WIPE 11.1. Native Modrinth integration, automatic Java provisioning, Ely.by skins, built-in GitHub auto-updater, and isolated instances — free and open source.
+      </p>
+
+      <div class="landing-actions">
+        <button type="button" class="landing-chip landing-chip-primary" data-open-modal="download" data-dl-preset="setup">
+          <span data-i18n="hero.dlSetup">Download v11.1</span>
+        </button>
+
+        <button type="button" class="landing-chip" data-open-modal="download" data-dl-preset="portable">
+          <svg viewBox="0 0 16 16" fill="none" aria-hidden="true">
+            <rect x="2.5" y="3.5" width="11" height="9" rx="1.6" stroke="currentColor" stroke-width="1.5" />
+            <path d="M5.5 7.5H10.5M5.5 9.8H8.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" />
+          </svg>
+          <span data-i18n="hero.portable">Portable Build</span>
+        </button>
+
+        <button type="button" class="landing-chip" data-open-modal="java">
+          <svg viewBox="0 0 16 16" fill="none" aria-hidden="true">
+            <path d="M4.2 3.2H11.8V12.8H4.2V3.2Z" stroke="currentColor" stroke-width="1.45" />
+            <path d="M6.4 6H9.6M6.4 8.2H9.6M6.4 10.4H8.4" stroke="currentColor" stroke-width="1.35" stroke-linecap="round" />
+          </svg>
+          <span data-i18n="hero.javaMatrix">Java Matrix</span>
+        </button>
+
+        <a class="landing-chip" href="#compare">
+          <svg viewBox="0 0 16 16" fill="none" aria-hidden="true">
+            <path d="M2.5 4.2H13.5M2.5 8H13.5M2.5 11.8H9.5" stroke="currentColor" stroke-width="1.55" stroke-linecap="round" />
+          </svg>
+          <span data-i18n="hero.compare">Compare</span>
+        </a>
+      </div>
+
+      <nav class="landing-bottom-links" aria-label="Quick navigation">
+        <a href="#whats-new" data-i18n="links.whatsNew">What’s New in 11.1</a>
+        <a href="#features" data-i18n="links.features">Features</a>
+        <a href="#compare" data-i18n="links.compare">Comparison</a>
+        <button type="button" data-open-modal="java" data-i18n="links.java">Java 8–25 Matrix</button>
+        <button type="button" data-jump-skins data-i18n="links.skins">3D Skins</button>
+        <a href="https://github.com/flyingenes/wipe-launcher" target="_blank" rel="noopener noreferrer" data-i18n="links.github">GitHub</a>
+        <button type="button" data-open-modal="license" data-i18n="links.license">GPL-3.0 License</button>
+      </nav>
+
+      <!-- Sliding 3-Tab Switcher (exact isaeva.xyz structure) -->
+      <div class="HeroGalleryTabs" id="HeroGalleryTabs" role="tablist" aria-label="Launcher showcase views">
+        <button type="button" role="tab" aria-selected="true" data-tab="interface" data-i18n="tabs.interface">Interface</button>
+        <button type="button" role="tab" aria-selected="false" data-tab="modrinth" data-i18n="tabs.modrinth">Modrinth</button>
+        <button type="button" role="tab" aria-selected="false" data-tab="skins" data-i18n="tabs.skins">3D Skins</button>
+      </div>
+
+      <!-- 3-Panel 3D Depth Carousel -->
+      <figure id="HomepageGallery" class="HeroPreview" tabindex="0" aria-label="Interactive WIPE v11.1 preview carousel">
+        <div class="HeroGallery" id="HeroGallery" data-dragging="false"></div>
+
+        <figcaption class="HeroCarouselMeta">
+          <button type="button" class="HeroNavArrow" id="HeroPrevBtn" aria-label="Previous slide">
+            <svg viewBox="0 0 16 16" fill="none" aria-hidden="true">
+              <path d="M9.75 3.5L5.25 8L9.75 12.5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+          </button>
+          <div class="HeroSlideCaption" id="HeroSlideCaption"></div>
+          <button type="button" class="HeroNavArrow" id="HeroNextBtn" aria-label="Next slide">
+            <svg viewBox="0 0 16 16" fill="none" aria-hidden="true">
+              <path d="M6.25 3.5L10.75 8L6.25 12.5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+          </button>
+        </figcaption>
+      </figure>
+    </section>
+
+    <!-- 3. Ecosystem Marquee (100% real integrations from rattest) -->
+    <section class="HomeEcosystem HomeSection reveal-el">
+      <h2 data-i18n="eco.title">Built on open ecosystems</h2>
+      <div class="ResellerViewport">
+        <div class="ResellerTrack">
+          <div class="ResellerGroup">
+            <span class="ResellerBrand">Fabric</span>
+            <span class="ResellerBrand">Forge</span>
+            <span class="ResellerBrand">NeoForge</span>
+            <span class="ResellerBrand">Quilt</span>
+            <span class="ResellerBrand">Vanilla</span>
+            <span class="ResellerBrand">Modrinth v2</span>
+            <span class="ResellerBrand">Ely.by</span>
+            <span class="ResellerBrand">Auto Updater</span>
+            <span class="ResellerBrand">Authlib Injector</span>
+            <span class="ResellerBrand">Adoptium</span>
+            <span class="ResellerBrand">OpenJDK 25</span>
+            <span class="ResellerBrand">Satoshi UI</span>
+            <span class="ResellerBrand">Discord RPC</span>
+            <span class="ResellerBrand">Electron 34</span>
+            <span class="ResellerBrand">GPL-3.0</span>
+          </div>
+          <div class="ResellerGroup" aria-hidden="true">
+            <span class="ResellerBrand">Fabric</span>
+            <span class="ResellerBrand">Forge</span>
+            <span class="ResellerBrand">NeoForge</span>
+            <span class="ResellerBrand">Quilt</span>
+            <span class="ResellerBrand">Vanilla</span>
+            <span class="ResellerBrand">Modrinth v2</span>
+            <span class="ResellerBrand">Ely.by</span>
+            <span class="ResellerBrand">Auto Updater</span>
+            <span class="ResellerBrand">Authlib Injector</span>
+            <span class="ResellerBrand">Adoptium</span>
+            <span class="ResellerBrand">OpenJDK 25</span>
+            <span class="ResellerBrand">Satoshi UI</span>
+            <span class="ResellerBrand">Discord RPC</span>
+            <span class="ResellerBrand">Electron 34</span>
+            <span class="ResellerBrand">GPL-3.0</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4. Honest Architectural Comparison Table -->
+    <section class="HomeComparison HomeSection reveal-el" id="compare">
+      <div class="HomeSectionHeading">
+        <h2 data-i18n="cmp.heading">One launcher. Everything included.</h2>
+      </div>
+
+      <div class="ComparisonScroll">
+        <table class="ComparisonTable">
+          <thead>
+            <tr>
+              <th scope="col">Feature</th>
+              <th scope="col">
+                <div class="ComparisonColBrand">
+                  <img src="assets/images/wipe-logo.png" alt="WIPE 11.1" />
+                  <span>WIPE 11.1</span>
+                </div>
+              </th>
+              <th scope="col">
+                <div class="ComparisonColBrand">
+                  <svg viewBox="0 0 28 28" fill="none" aria-hidden="true">
+                    <rect x="4" y="4" width="20" height="20" rx="3" stroke="currentColor" stroke-width="2" />
+                    <path d="M4 11H24M14 11V24" stroke="currentColor" stroke-width="2" />
+                  </svg>
+                  <span>Official</span>
+                </div>
+              </th>
+              <th scope="col">
+                <div class="ComparisonColBrand">
+                  <svg viewBox="0 0 28 28" fill="none" aria-hidden="true">
+                    <path d="M14 4L24 22H4L14 4Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round" />
+                  </svg>
+                  <span>Prism</span>
+                </div>
+              </th>
+              <th scope="col">
+                <div class="ComparisonColBrand">
+                  <svg viewBox="0 0 28 28" fill="none" aria-hidden="true">
+                    <circle cx="14" cy="14" r="9.5" stroke="currentColor" stroke-width="2" />
+                    <path d="M10.5 17.5V11L14 14.5L17.5 11V17.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                  </svg>
+                  <span>Modrinth App</span>
+                </div>
+              </th>
+              <th scope="col">
+                <div class="ComparisonColBrand">
+                  <svg viewBox="0 0 28 28" fill="none" aria-hidden="true">
+                    <path d="M6 7H22M14 7V22" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" />
+                  </svg>
+                  <span>TLauncher</span>
+                </div>
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row">Fabric / Forge / NeoForge / Quilt</th>
+              <td><span class="cmp-check"><svg viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="8.5" stroke="currentColor" stroke-opacity="0.45" stroke-width="1.5"/><path d="M6.6 10.2L8.9 12.5L13.6 7.6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span></td>
+              <td><span class="cmp-dash">—</span></td>
+              <td><span class="cmp-check"><svg viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="8.5" stroke="currentColor" stroke-opacity="0.45" stroke-width="1.5"/><path d="M6.6 10.2L8.9 12.5L13.6 7.6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span></td>
+              <td><span class="cmp-check"><svg viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="8.5" stroke="currentColor" stroke-opacity="0.45" stroke-width="1.5"/><path d="M6.6 10.2L8.9 12.5L13.6 7.6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span></td>
+              <td><span class="cmp-val">Partial</span></td>
+            </tr>
+            <tr>
+              <th scope="row">Isolated Version Folders</th>
+              <td><span class="cmp-check"><svg viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="8.5" stroke="currentColor" stroke-opacity="0.45" stroke-width="1.5"/><path d="M6.6 10.2L8.9 12.5L13.6 7.6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span></td>
+              <td><span class="cmp-val">Manual</span></td>
+              <td><span class="cmp-check"><svg viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="8.5" stroke="currentColor" stroke-opacity="0.45" stroke-width="1.5"/><path d="M6.6 10.2L8.9 12.5L13.6 7.6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span></td>
+              <td><span class="cmp-check"><svg viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="8.5" stroke="currentColor" stroke-opacity="0.45" stroke-width="1.5"/><path d="M6.6 10.2L8.9 12.5L13.6 7.6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span></td>
+              <td><span class="cmp-dash">—</span></td>
+            </tr>
+            <tr>
+              <th scope="row">Built-in Modrinth v2 Browser</th>
+              <td><span class="cmp-check"><svg viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="8.5" stroke="currentColor" stroke-opacity="0.45" stroke-width="1.5"/><path d="M6.6 10.2L8.9 12.5L13.6 7.6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span></td>
+              <td><span class="cmp-dash">—</span></td>
+              <td><span class="cmp-check"><svg viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="8.5" stroke="currentColor" stroke-opacity="0.45" stroke-width="1.5"/><path d="M6.6 10.2L8.9 12.5L13.6 7.6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span></td>
+              <td><span class="cmp-check"><svg viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="8.5" stroke="currentColor" stroke-opacity="0.45" stroke-width="1.5"/><path d="M6.6 10.2L8.9 12.5L13.6 7.6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span></td>
+              <td><span class="cmp-dash">—</span></td>
+            </tr>
+            <tr>
+              <th scope="row">Auto Dependency &amp; Shader Resolver</th>
+              <td><span class="cmp-check"><svg viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="8.5" stroke="currentColor" stroke-opacity="0.45" stroke-width="1.5"/><path d="M6.6 10.2L8.9 12.5L13.6 7.6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span></td>
+              <td><span class="cmp-dash">—</span></td>
+              <td><span class="cmp-val">Mods only</span></td>
+              <td><span class="cmp-check"><svg viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="8.5" stroke="currentColor" stroke-opacity="0.45" stroke-width="1.5"/><path d="M6.6 10.2L8.9 12.5L13.6 7.6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span></td>
+              <td><span class="cmp-dash">—</span></td>
+            </tr>
+            <tr>
+              <th scope="row">Auto Adoptium Java 8 / 17 / 21 / 25</th>
+              <td><span class="cmp-check"><svg viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="8.5" stroke="currentColor" stroke-opacity="0.45" stroke-width="1.5"/><path d="M6.6 10.2L8.9 12.5L13.6 7.6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span></td>
+              <td><span class="cmp-val">Bundled</span></td>
+              <td><span class="cmp-check"><svg viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="8.5" stroke="currentColor" stroke-opacity="0.45" stroke-width="1.5"/><path d="M6.6 10.2L8.9 12.5L13.6 7.6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span></td>
+              <td><span class="cmp-check"><svg viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="8.5" stroke="currentColor" stroke-opacity="0.45" stroke-width="1.5"/><path d="M6.6 10.2L8.9 12.5L13.6 7.6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span></td>
+              <td><span class="cmp-val">Legacy</span></td>
+            </tr>
+            <tr>
+              <th scope="row">Offline Accounts (RFC 4122 v3)</th>
+              <td><span class="cmp-check"><svg viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="8.5" stroke="currentColor" stroke-opacity="0.45" stroke-width="1.5"/><path d="M6.6 10.2L8.9 12.5L13.6 7.6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span></td>
+              <td><span class="cmp-dash">—</span></td>
+              <td><span class="cmp-val">Paid req.</span></td>
+              <td><span class="cmp-dash">—</span></td>
+              <td><span class="cmp-check"><svg viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="8.5" stroke="currentColor" stroke-opacity="0.45" stroke-width="1.5"/><path d="M6.6 10.2L8.9 12.5L13.6 7.6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span></td>
+            </tr>
+            <tr>
+              <th scope="row">Native Ely.by OAuth Skins &amp; Capes</th>
+              <td><span class="cmp-check"><svg viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="8.5" stroke="currentColor" stroke-opacity="0.45" stroke-width="1.5"/><path d="M6.6 10.2L8.9 12.5L13.6 7.6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span></td>
+              <td><span class="cmp-dash">—</span></td>
+              <td><span class="cmp-dash">—</span></td>
+              <td><span class="cmp-dash">—</span></td>
+              <td><span class="cmp-val">Own system</span></td>
+            </tr>
+            <tr>
+              <th scope="row">Custom 64×64 PNG Skin Importer</th>
+              <td><span class="cmp-check"><svg viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="8.5" stroke="currentColor" stroke-opacity="0.45" stroke-width="1.5"/><path d="M6.6 10.2L8.9 12.5L13.6 7.6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span></td>
+              <td><span class="cmp-check"><svg viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="8.5" stroke="currentColor" stroke-opacity="0.45" stroke-width="1.5"/><path d="M6.6 10.2L8.9 12.5L13.6 7.6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span></td>
+              <td><span class="cmp-dash">—</span></td>
+              <td><span class="cmp-check"><svg viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="8.5" stroke="currentColor" stroke-opacity="0.45" stroke-width="1.5"/><path d="M6.6 10.2L8.9 12.5L13.6 7.6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span></td>
+              <td><span class="cmp-val">Web only</span></td>
+            </tr>
+            <tr>
+              <th scope="row">Live Console &amp; Crash Diagnostics</th>
+              <td><span class="cmp-check"><svg viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="8.5" stroke="currentColor" stroke-opacity="0.45" stroke-width="1.5"/><path d="M6.6 10.2L8.9 12.5L13.6 7.6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span></td>
+              <td><span class="cmp-val">Optional</span></td>
+              <td><span class="cmp-check"><svg viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="8.5" stroke="currentColor" stroke-opacity="0.45" stroke-width="1.5"/><path d="M6.6 10.2L8.9 12.5L13.6 7.6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span></td>
+              <td><span class="cmp-check"><svg viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="8.5" stroke="currentColor" stroke-opacity="0.45" stroke-width="1.5"/><path d="M6.6 10.2L8.9 12.5L13.6 7.6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span></td>
+              <td><span class="cmp-val">Basic</span></td>
+            </tr>
+            <tr>
+              <th scope="row">Discord Rich Presence</th>
+              <td><span class="cmp-check"><svg viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="8.5" stroke="currentColor" stroke-opacity="0.45" stroke-width="1.5"/><path d="M6.6 10.2L8.9 12.5L13.6 7.6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span></td>
+              <td><span class="cmp-dash">—</span></td>
+              <td><span class="cmp-dash">—</span></td>
+              <td><span class="cmp-check"><svg viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="8.5" stroke="currentColor" stroke-opacity="0.45" stroke-width="1.5"/><path d="M6.6 10.2L8.9 12.5L13.6 7.6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span></td>
+              <td><span class="cmp-dash">—</span></td>
+            </tr>
+            <tr>
+              <th scope="row">Zero Ads &amp; Open Source</th>
+              <td><span class="cmp-val">GPL-3.0</span></td>
+              <td><span class="cmp-dash">—</span></td>
+              <td><span class="cmp-val">GPL-3.0</span></td>
+              <td><span class="cmp-val">Ads in UI</span></td>
+              <td><span class="cmp-dash">—</span></td>
+            </tr>
+            <tr>
+              <th scope="row">English &amp; Turkish (Instant Switch)</th>
+              <td><span class="cmp-check"><svg viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="8.5" stroke="currentColor" stroke-opacity="0.45" stroke-width="1.5"/><path d="M6.6 10.2L8.9 12.5L13.6 7.6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span></td>
+              <td><span class="cmp-check"><svg viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="8.5" stroke="currentColor" stroke-opacity="0.45" stroke-width="1.5"/><path d="M6.6 10.2L8.9 12.5L13.6 7.6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span></td>
+              <td><span class="cmp-check"><svg viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="8.5" stroke="currentColor" stroke-opacity="0.45" stroke-width="1.5"/><path d="M6.6 10.2L8.9 12.5L13.6 7.6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span></td>
+              <td><span class="cmp-val">Community</span></td>
+              <td><span class="cmp-check"><svg viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="8.5" stroke="currentColor" stroke-opacity="0.45" stroke-width="1.5"/><path d="M6.6 10.2L8.9 12.5L13.6 7.6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span></td>
+            </tr>
+            <tr>
+              <th scope="row">Native GitHub Auto Updater</th>
+              <td><span class="cmp-check"><svg viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="8.5" stroke="currentColor" stroke-opacity="0.45" stroke-width="1.5"/><path d="M6.6 10.2L8.9 12.5L13.6 7.6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span></td>
+              <td><span class="cmp-check"><svg viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="8.5" stroke="currentColor" stroke-opacity="0.45" stroke-width="1.5"/><path d="M6.6 10.2L8.9 12.5L13.6 7.6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span></td>
+              <td><span class="cmp-check"><svg viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="8.5" stroke="currentColor" stroke-opacity="0.45" stroke-width="1.5"/><path d="M6.6 10.2L8.9 12.5L13.6 7.6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span></td>
+              <td><span class="cmp-check"><svg viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="8.5" stroke="currentColor" stroke-opacity="0.45" stroke-width="1.5"/><path d="M6.6 10.2L8.9 12.5L13.6 7.6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span></td>
+              <td><span class="cmp-val">Proprietary</span></td>
+            </tr>
+            <tr>
+              <th scope="row">Local Yggdrasil Skin &amp; Cape Server</th>
+              <td><span class="cmp-check"><svg viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="8.5" stroke="currentColor" stroke-opacity="0.45" stroke-width="1.5"/><path d="M6.6 10.2L8.9 12.5L13.6 7.6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span></td>
+              <td><span class="cmp-dash">—</span></td>
+              <td><span class="cmp-dash">—</span></td>
+              <td><span class="cmp-dash">—</span></td>
+              <td><span class="cmp-val">Own mod</span></td>
+            </tr>
+            <tr>
+              <th scope="row">Portable .exe &amp; NSIS Setup</th>
+              <td><span class="cmp-val">Included</span></td>
+              <td><span class="cmp-dash">—</span></td>
+              <td><span class="cmp-val">Included</span></td>
+              <td><span class="cmp-dash">—</span></td>
+              <td><span class="cmp-dash">—</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- 4.5 What's New in V11.1 Release Highlights -->
+    <section class="HomeWhatsNew HomeSection" id="whats-new">
+      <div class="HomeSectionHeading reveal-el">
+        <span class="ReleasePill" data-i18n="wn.badge">RELEASE V11.1</span>
+        <h2 data-i18n="wn.heading">What’s new in WIPE 11.1.</h2>
+        <p data-i18n="wn.lead">
+          Built-in GitHub Release auto-updates, fluid directional motion choreography, local Yggdrasil skin injection, and our pure obsidian Satoshi interface.
+        </p>
+      </div>
+
+      <div class="WhatsNewGrid">
+        <article class="WhatsNewCard reveal-el" style="--delay: 0ms">
+          <div class="WhatsNewCard__top">
+            <span class="WhatsNewTag">V11.1 · updater.js</span>
+            <span class="WhatsNewIcon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none">
+                <path d="M16 16L12 20L8 16M12 20V11M20 15.74C21.22 14.73 22 13.21 22 11.5C22 8.46 19.54 6 16.5 6C16.28 6 16.08 5.89 15.97 5.7C14.66 3.48 12.25 2 9.5 2C5.36 2 2 5.36 2 9.5C2 11.57 2.84 13.44 4.19 14.79" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+            </span>
+          </div>
+          <h3 data-i18n="wn.c1Title">Native GitHub Auto Updater</h3>
+          <p data-i18n="wn.c1Desc">
+            Checks GitHub Releases on startup, renders structured changelogs inside the in-app Update Available modal, detects NSIS vs Portable mode, and streams updates with live MB/s progress.
+          </p>
+        </article>
+
+        <article class="WhatsNewCard reveal-el" style="--delay: 60ms">
+          <div class="WhatsNewCard__top">
+            <span class="WhatsNewTag">V11.1 · renderer.js</span>
+            <span class="WhatsNewIcon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none">
+                <path d="M4 7H20M4 17H20M8 3L4 7L8 11M16 13L20 17L16 21" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+            </span>
+          </div>
+          <h3 data-i18n="wn.c2Title">Fluid Spatial Tab Choreography</h3>
+          <p data-i18n="wn.c2Desc">
+            Spring-gliding navbar pill indicator paired with directional blur-and-scale view transitions, staggered slot reveals, and smooth settings sub-panel crossfades.
+          </p>
+        </article>
+
+        <article class="WhatsNewCard reveal-el" style="--delay: 120ms">
+          <div class="WhatsNewCard__top">
+            <span class="WhatsNewTag">V11 · skinServer.js</span>
+            <span class="WhatsNewIcon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none">
+                <path d="M12 3L20 7.5V16.5L12 21L4 16.5V7.5L12 3ZM12 12L20 7.5M12 12V21M12 12L4 7.5" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+            </span>
+          </div>
+          <h3 data-i18n="wn.c3Title">Yggdrasil Skin &amp; Cape Injection</h3>
+          <p data-i18n="wn.c3Desc">
+            Embedded local Yggdrasil skin server and bundled authlib-injector deliver instant custom 64×64 PNG skins and one-click Ely.by OAuth HD capes directly in-game.
+          </p>
+        </article>
+
+        <article class="WhatsNewCard reveal-el" style="--delay: 180ms">
+          <div class="WhatsNewCard__top">
+            <span class="WhatsNewTag">V11 · style.css</span>
+            <span class="WhatsNewIcon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none">
+                <rect x="3" y="4" width="18" height="16" rx="3" stroke="currentColor" stroke-width="1.9" />
+                <path d="M3 9H21M9 9V20" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" />
+              </svg>
+            </span>
+          </div>
+          <h3 data-i18n="wn.c4Title">Pure Obsidian &amp; Satoshi UI</h3>
+          <p data-i18n="wn.c4Desc">
+            Refined obsidian dark surfaces (#070708) and high-contrast Light Mode powered by bundled Satoshi, LostInSouth, and JetBrains Mono typography with zero bloat.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <!-- 5. Numbered Feature Rows (01–04 exact isaeva.xyz cadence) -->
+    <section class="HomeFeatures HomeSection" id="features">
+      <div class="HomeSectionHeading reveal-el">
+        <h2 data-i18n="feat.heading">Make every detail yours.</h2>
+        <p data-i18n="feat.lead">
+          Engineered around speed, isolated instances, and native tooling — without ads, upsells, or bloated background services.
+        </p>
+      </div>
+
+      <div class="HomeFeatureRows">
+        <article class="reveal-el" style="--delay: 0ms">
+          <span class="FeatureIndex">01</span>
+          <div class="FeatureBody">
+            <h3 data-i18n="f1.title">Isolated versions, every loader.</h3>
+            <p data-i18n="f1.desc">
+              Create clean, self-contained profiles for Fabric, Forge, NeoForge, Quilt, and Vanilla fetched directly from Mojang’s version_manifest_v2.json. Every version keeps its own mods, shaders, resourcepacks, and saves with SHA-1 verified downloads.
+            </p>
+          </div>
+          <div class="FeatureAction">
+            <div class="FeatureMetaCode">mojang.js<br>instances.js<br>downloader.js</div>
+          </div>
+        </article>
+
+        <article class="reveal-el" style="--delay: 80ms">
+          <span class="FeatureIndex">02</span>
+          <div class="FeatureBody">
+            <h3 data-i18n="f2.title">Modrinth v2 with automatic dependencies.</h3>
+            <p data-i18n="f2.desc">
+              Search and install mods, resource packs, and shaders straight into your active instance. WIPE automatically inspects required dependencies and resolves shader runtimes — pulling Iris + Sodium on Fabric/Quilt or Oculus on Forge.
+            </p>
+          </div>
+          <div class="FeatureAction">
+            <div class="FeatureMetaCode">api.modrinth.com/v2<br>Iris · Sodium · Oculus</div>
+          </div>
+        </article>
+
+        <article class="reveal-el" style="--delay: 140ms">
+          <span class="FeatureIndex">03</span>
+          <div class="FeatureBody">
+            <h3 data-i18n="f3.title">Auto-provisioned Java 8 through 25.</h3>
+            <p data-i18n="f3.desc">
+              Never hunt for JDK installers again. WIPE scans system Java installations and automatically provisions matching Eclipse Adoptium JRE builds from Java 8 (MC 1.8) up to Java 25 (MC 26+), paired with per-profile -Xmx sliders and G1GC flags.
+            </p>
+          </div>
+          <div class="FeatureAction">
+            <button type="button" class="landing-chip" data-open-modal="java" data-i18n="hero.javaMatrix">Java Matrix</button>
+          </div>
+        </article>
+
+        <article class="reveal-el" style="--delay: 200ms">
+          <span class="FeatureIndex">04</span>
+          <div class="FeatureBody">
+            <h3 data-i18n="f4.title">Ely.by skins, offline UUIDs, live Discord RPC.</h3>
+            <p data-i18n="f4.desc">
+              Authorize your Ely.by account in one click for synced HD skins and capes, or create offline accounts using RFC 4122 v3 MD5 UUIDs. Includes live stdout/stderr console diagnostics, EN/TR localization, Dark &amp; Light themes, and Discord Rich Presence.
+            </p>
+          </div>
+          <div class="FeatureAction">
+            <div class="FeatureMetaCode">skinServer.js<br>authlib-injector</div>
+          </div>
+        </article>
+
+        <article class="reveal-el" style="--delay: 260ms">
+          <span class="FeatureIndex">05</span>
+          <div class="FeatureBody">
+            <h3 data-i18n="f5.title">Seamless GitHub Release auto-updates.</h3>
+            <p data-i18n="f5.desc">
+              Stay current without hunting for links. WIPE V11.1 verifies the latest GitHub Release on startup, displays full patch notes in-app, picks the matching NSIS or Portable binary, and installs updates in one click.
+            </p>
+          </div>
+          <div class="FeatureAction">
+            <button type="button" class="landing-chip landing-chip-primary" data-open-modal="download" data-dl-preset="setup" data-i18n="f4.cta">Download v11.1</button>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- 6. Bottom Closing CTA -->
+    <section class="HomeClosing HomeSection reveal-el">
+      <div class="HomeSectionHeading">
+        <h2 data-i18n="closing.heading">Launch your next world.</h2>
+      </div>
+      <div class="HomeClosingActions">
+        <button type="button" class="landing-chip landing-chip-primary" data-open-modal="download" data-dl-preset="setup" data-i18n="closing.primary">Get WIPE 11.1</button>
+        <button type="button" class="landing-chip" data-jump-skins data-i18n="closing.secondary">Explore 3D Skins</button>
+      </div>
+      <div class="HomeClosingMeta">
+        <span>WIPE Launcher v11.1.0</span>
+        <span>Windows 10/11 x64</span>
+        <span>Electron 34.5.8</span>
+        <span>GPL-3.0</span>
+      </div>
+    </section>
+  </main>
+
+  <!-- Modal: Download WIPE v11.1 -->
+  <div class="wipe-modal" id="ModalDownload" role="dialog" aria-modal="true" aria-labelledby="ModalDownloadTitle">
+    <div class="wipe-modal__panel">
+      <div class="wipe-modal__head">
+        <div>
+          <h3 class="wipe-modal__title" id="ModalDownloadTitle" data-i18n="dl.modalTitle">Download WIPE 11.1</h3>
+          <p class="wipe-modal__sub" data-i18n="dl.modalSub">Choose between the standard Windows NSIS installer or single-file portable build.</p>
+        </div>
+        <button type="button" class="wipe-modal__close" data-close-modal aria-label="Close">
+          <svg viewBox="0 0 16 16" fill="none"><path d="M4 4L12 12M12 4L4 12" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>
+        </button>
+      </div>
+
+      <div class="dl-cards">
+        <button type="button" class="dl-option is-selected" data-dl-option="setup">
+          <div class="dl-option__name" data-i18n="dl.setupName">NSIS Setup Installer</div>
+          <div class="dl-option__file">WIPE V11.1 Setup.exe</div>
+          <div class="dl-option__desc" data-i18n="dl.setupDesc">Custom installation directory, Desktop &amp; Start Menu shortcuts, built-in auto updater.</div>
+        </button>
+        <button type="button" class="dl-option" data-dl-option="portable">
+          <div class="dl-option__name" data-i18n="dl.portableName">Portable Executable</div>
+          <div class="dl-option__file">WIPE V11.1.exe</div>
+          <div class="dl-option__desc" data-i18n="dl.portableDesc">Single x64 binary built via electron-builder — launch anywhere with zero install.</div>
+        </button>
+      </div>
+
+      <div class="dl-specs" id="DownloadSpecs"></div>
+
+      <div class="dl-modal-foot">
+        <a class="dl-status-msg dl-release-link" id="DownloadStatusMsg" href="https://github.com/flyingenes/wipe-launcher/releases/latest" target="_blank" rel="noopener noreferrer">GitHub Releases · v11.1.0</a>
+        <a class="landing-chip landing-chip-primary" id="BtnConfirmDownload" href="https://github.com/flyingenes/wipe-launcher/releases/download/v11.1.0/WIPE.V11.1.Setup.exe" target="_blank" rel="noopener noreferrer">
+          <svg viewBox="0 0 16 16" fill="none" aria-hidden="true">
+            <path d="M8 2.25V10.5M8 10.5L4.75 7.25M8 10.5L11.25 7.25M2.75 12.75H13.25" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
+          <span id="BtnConfirmDownloadLabel">Download WIPE V11.1 Setup.exe</span>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal: Java Runtime Auto-Provisioning Matrix -->
+  <div class="wipe-modal" id="ModalJava" role="dialog" aria-modal="true" aria-labelledby="ModalJavaTitle">
+    <div class="wipe-modal__panel">
+      <div class="wipe-modal__head">
+        <div>
+          <h3 class="wipe-modal__title" id="ModalJavaTitle">Automatic Java Matrix</h3>
+          <p class="wipe-modal__sub">Direct mapping from <code>electron/services/javaManager.js</code> using Eclipse Adoptium JRE x64.</p>
+        </div>
+        <button type="button" class="wipe-modal__close" data-close-modal aria-label="Close">
+          <svg viewBox="0 0 16 16" fill="none"><path d="M4 4L12 12M12 4L4 12" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>
+        </button>
+      </div>
+
+      <table class="matrix-table">
+        <thead>
+          <tr>
+            <th>Minecraft Version</th>
+            <th>Required Runtime</th>
+            <th>Provider</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>MC 1.8 – 1.16.5</td>
+            <td class="mono">Java 8</td>
+            <td>Eclipse Adoptium JRE (x64)</td>
+          </tr>
+          <tr>
+            <td>MC 1.17 – 1.20.4</td>
+            <td class="mono">Java 17</td>
+            <td>Eclipse Adoptium JRE (x64)</td>
+          </tr>
+          <tr>
+            <td>MC 1.20.5 – 1.21+</td>
+            <td class="mono">Java 21</td>
+            <td>Eclipse Adoptium JRE (x64)</td>
+          </tr>
+          <tr>
+            <td>MC 26.x+</td>
+            <td class="mono">Java 25</td>
+            <td>Eclipse Adoptium JRE (x64)</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="dl-specs" style="margin-bottom:0">
+        <strong>Default JVM Flags:</strong> -XX:+UseG1GC -XX:+ParallelRefProcEnabled<br>
+        <strong>RAM Allocation (-Xmx):</strong> 1024 MB – 16384 MB (512 MB increments)
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal: License & Technical Manifest -->
+  <div class="wipe-modal" id="ModalLicense" role="dialog" aria-modal="true" aria-labelledby="ModalLicenseTitle">
+    <div class="wipe-modal__panel">
+      <div class="wipe-modal__head">
+        <div>
+          <h3 class="wipe-modal__title" id="ModalLicenseTitle">WIPE 11.1 — Open Source Manifest</h3>
+          <p class="wipe-modal__sub">Verified metadata from WIPE Launcher package.json &amp; Electron services.</p>
+        </div>
+        <button type="button" class="wipe-modal__close" data-close-modal aria-label="Close">
+          <svg viewBox="0 0 16 16" fill="none"><path d="M4 4L12 12M12 4L4 12" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>
+        </button>
+      </div>
+
+      <div class="dl-specs" style="margin-bottom:0">
+        <strong>Product:</strong> WIPE Launcher (com.wipe.launcher)<br>
+        <strong>Version:</strong> 11.1.0<br>
+        <strong>Repository:</strong> github.com/flyingenes/wipe-launcher<br>
+        <strong>License:</strong> GNU General Public License v3.0 (GPL-3.0)<br>
+        <strong>Core Stack:</strong> Electron 34.5.8 · adm-zip · discord-rpc · authlib-injector · Vanilla JS/CSS<br>
+        <strong>Security:</strong> Context isolation enabled · Node integration disabled · SHA-1 download checks
+      </div>
+    </div>
+  </div>
+
+  <script type="module" src="js/app.js"></script>
+</body>
+</html>

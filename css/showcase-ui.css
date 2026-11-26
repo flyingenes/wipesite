@@ -1,0 +1,134 @@
+/* ==========================================================================
+   WIPE Launcher v11 — Real Screenshot Frames & 3D Skin Stage Styling
+   Pure Obsidian Black & Cobalt Blue (#2f62ff)
+   ========================================================================== */
+
+.shot-slide {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background: #07090c;
+  overflow: hidden;
+  user-select: none;
+}
+
+.shot-slide img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+  display: block;
+  pointer-events: none;
+  -webkit-user-drag: none;
+  transition: transform 0.65s var(--ease-out);
+}
+
+.HeroSlide[data-active='true']:hover .shot-slide img {
+  transform: scale(1.015);
+}
+
+/* ---------- Tab 3: Interactive 3D Minecraft Skin Stage (Cobalt Blue & Obsidian) ---------- */
+.skin3d-slide {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background:
+    radial-gradient(ellipse 72% 56% at 50% 42%, rgba(47, 98, 255, 0.22), transparent 72%),
+    linear-gradient(180deg, #0b0d12 0%, #07080b 100%);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 18px;
+  overflow: hidden;
+  text-align: left;
+}
+
+.skin3d-head {
+  position: relative;
+  z-index: 3;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  text-align: left;
+}
+
+.skin3d-title {
+  font-size: 0.92rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: #f2f2f4;
+  text-align: left;
+}
+
+.skin3d-sub {
+  margin-top: 2px;
+  font-family: var(--font-mono);
+  font-size: 0.64rem;
+  color: var(--text-muted);
+  text-align: left;
+}
+
+.skin3d-canvas-wrap {
+  position: relative;
+  flex: 1;
+  min-height: 220px;
+  cursor: grab;
+}
+
+.skin3d-canvas-wrap:active {
+  cursor: grabbing;
+}
+
+.skin3d-canvas-wrap canvas {
+  width: 100% !important;
+  height: 100% !important;
+  display: block;
+}
+
+.skin3d-controls {
+  position: relative;
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding-top: 10px;
+  border-top: 1px solid rgba(255, 255, 255, 0.07);
+}
+
+.skin3d-btn-group {
+  display: flex;
+  gap: 6px;
+}
+
+.skin3d-ctrl-btn {
+  height: 28px;
+  padding: 0 10px;
+  border-radius: 6px;
+  background: #12141a;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: var(--text-muted);
+  font-size: 0.68rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s, border-color 0.2s, transform 0.25s var(--ease-spring);
+}
+
+.skin3d-ctrl-btn:hover {
+  background: #1a1f2b;
+  color: #ffffff;
+}
+
+.skin3d-ctrl-btn.is-active {
+  background: var(--accent);
+  border-color: var(--accent-bright);
+  color: #ffffff;
+}
+
+.skin3d-hint {
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  color: var(--text-dim);
+  white-space: nowrap;
+}
