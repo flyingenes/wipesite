@@ -1,7 +1,7 @@
 import { initBg3D } from './bg3d.js';
 import { initCarousel } from './carousel.js';
 
-const RELEASE_TAG = 'v11.1.1';
+const RELEASE_TAG = 'v11.1.2';
 const GITHUB_REPO = 'https://github.com/flyingenes/wipe-launcher';
 
 /**
@@ -72,8 +72,8 @@ const I18N = {
     'dl.setupDesc': 'Custom installation directory, Desktop & Start Menu shortcuts, built-in auto updater.',
     'dl.portableName': 'Portable Executable',
     'dl.portableDesc': 'Single x64 binary built via electron-builder — launch anywhere with zero install.',
-    'dl.btnSetup': 'Download WIPE V11.1.1 Setup.exe',
-    'dl.btnPortable': 'Download WIPE V11.1.1.exe',
+    'dl.btnSetup': 'Download WIPE V11.1.2 Setup.exe',
+    'dl.btnPortable': 'Download WIPE V11.1.2.exe',
   },
   tr: {
     'nav.download': 'İndir',
@@ -139,8 +139,8 @@ const I18N = {
     'dl.setupDesc': 'Özel kurulum dizini, Masaüstü ve Başlat Menüsü kısayolları, yerleşik otomatik güncelleyici.',
     'dl.portableName': 'Taşınabilir Çalıştırılabilir (.exe)',
     'dl.portableDesc': 'Tek parça x64 çalıştırılabilir dosya — kurulum gerektirmeden istediğin klasörden başlat.',
-    'dl.btnSetup': 'WIPE V11.1.1 Setup.exe İndir',
-    'dl.btnPortable': 'WIPE V11.1.1.exe İndir',
+    'dl.btnSetup': 'WIPE V11.1.2 Setup.exe İndir',
+    'dl.btnPortable': 'WIPE V11.1.2.exe İndir',
   },
 };
 
@@ -216,8 +216,8 @@ function initModals() {
 
   const BUILD_INFO = {
     setup: {
-      file: 'WIPE V11.1.1 Setup.exe',
-      url: `${GITHUB_REPO}/releases/download/${RELEASE_TAG}/WIPE.V11.1.1.Setup.exe`,
+      file: 'WIPE V11.1.2 Setup.exe',
+      url: `${GITHUB_REPO}/releases/download/${RELEASE_TAG}/WIPE.V11.1.2.Setup.exe`,
       btnKey: 'dl.btnSetup',
       specs: {
         en:
@@ -231,8 +231,8 @@ function initModals() {
       },
     },
     portable: {
-      file: 'WIPE V11.1.1.exe',
-      url: `${GITHUB_REPO}/releases/download/${RELEASE_TAG}/WIPE.V11.1.1.exe`,
+      file: 'WIPE V11.1.2.exe',
+      url: `${GITHUB_REPO}/releases/download/${RELEASE_TAG}/WIPE.V11.1.2.exe`,
       btnKey: 'dl.btnPortable',
       specs: {
         en:
